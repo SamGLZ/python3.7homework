@@ -1,0 +1,36 @@
+import math
+def ManhattanDistance(x):
+    a = int(math.sqrt(x - 0.1))
+    if (a % 2) == 0:
+        R = int((a / 2) + 1)
+    else:
+        R = int(((a + 1) / 2) + 1)
+    r = R - 1
+    l = int(R * 2 - 1) #边长
+    t = int(l ** 2) #第R圈右下角数字值
+    d = int(t - x) #离t距离
+    b = (l - 1) #每边不重复计数
+    if b == 0: #中间的1(0,0)
+        x = 0
+        y = 0
+    elif d < b: #下边的最右(r,-r)
+        x = r - d
+        y = -r
+    elif b <= d < 2 * b: #左边的最下(-r,-r)
+        x = -r
+        y = -r + (d - b)
+    elif 2 * b <= d < 3 * b: #上边的最左(-r,r)
+        x = -r + (d - 2 * b)
+        y = r
+    elif 3 * b <= d: #右边的最上(r,r)
+        x = r
+        y = r - (d - 3 * b)
+    else:
+        x = 'wrong'
+        y = 'wrong'
+    md = abs(x) + abs(y)
+    return md
+
+x = int(input())
+print(ManhattanDistance(x))
+
