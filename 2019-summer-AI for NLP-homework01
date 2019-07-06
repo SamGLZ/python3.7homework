@@ -1,33 +1,30 @@
+
+
+
+
+
 基础理论部分
 0. Can you come up out 3 sceneraies which use AI methods?
-Ans: {Put your answer here}
-
+Ans: {AlphaGo, Robot-driven Vehicles and some Reservation System with AI}
 1. How do we use Github; Why do we use Jupyter and Pycharm;
-Ans: {Put your answer here}
-
+Ans: {We use Github as a code storage or a code cloud which everyone can share and comment. Jupyter can run python code and markdown code in the same time, so it’s clear for demonstration. However, Pycharm is a tool for real project developing. The best way we use these two tools is that Jupyter for lectures and Pycharm for practice.}
 2. What's the Probability Model?
-Ans:
-
+Ans: According to the probability of a word and the word next to it, calculating the probability that the whole sentence is correct
 3. Can you came up with some sceneraies at which we could use Probability Model?
-Ans:
-
-4. Why do we use probability and what's the difficult points for programming based on parsing and pattern match?
-Ans:
-
+Ans: In speech recognition, the Probability Model would be used to identify the most correct sentence.
+4. Why do we use probability and what's the difficult points for programming based on parsing and pattn match?
+Ans: Because it’s hard for human or computer to obtain the best arrangement of words for a meaningful sentence in common enumeration method. Probability of words presenting can narrow down the scale of combination. The difficulty of using parsing and pattn match is similar. The grammar in human language is various and it’s hard to list them all.
 5. What's the Language Model;
-Ans:
-
+Ans: For every x, which x is a sentence, in function f(x), the result would be a number between 0 and 1 which means the probability of x to be a meaningful sentence.
 6. Can you came up with some sceneraies at which we could use Language Model?
-Ans:
-
+Ans: A Robot for communication during games
 7. What's the 1-gram language model;
 Ans:
-
-8. What's the disadvantages and advantages of 1-gram language model;
+8. What's the disadvantages and advantages of 1-gram language model;¶
 Ans:
-
 9. What't the 2-gram models;
 Ans:
+
 
 编程实践部分
 # -*- coding: utf-8 -*-
