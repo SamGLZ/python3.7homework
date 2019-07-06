@@ -237,11 +237,11 @@ Ans: For every x, which x is a sentence, in function f(x), the result would be a
 6. Can you came up with some sceneraies at which we could use Language Model?
 Ans: A Robot for communication during games
 7. What's the 1-gram language model;
-Ans:
-8. What's the disadvantages and advantages of 1-gram language model;¶
-Ans:
+Ans: When we count the probability of a sentence, each word in this sentence would be treated as separate in calculation.
+8. What's the disadvantages and advantages of 1-gram language model;
+Ans: Not accurate and cannot tell the connection between words in a sentence.
 9. What't the 2-gram models;
-Ans:
+Ans:When we count the probability of a sentence, each word and its next word in this sentence would be treated as a 2-word part in calculation.
 
 
 编程实践部分
