@@ -1,3 +1,221 @@
+Jupyter Notebook
+Artificial-Intelligence-For-NLP
+
+In [259]:
+
+simple_grammar = """
+sentence => noun_phrase verb_phrase
+noun_phrase => Article Adj* noun
+Adj* => null | Adj Adj*
+verb_phrase => verb noun_phrase
+Article => 一个 | 这个
+noun => 女人 | 篮球 | 桌子 | 小猫
+verb => 看着 | 坐在 | 听着 | 看见
+Adj => 蓝色的 | 好看的 | 小小的"""
+In [237]:
+
+simple_number = """
+number = number number | single_number
+single_number = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0"""
+simple_number = """
+number = number number | single_number
+single_number = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0"""
+In [3]:
+
+import random
+In [4]:
+
+def adj(): return random.choice('蓝色的 | 好看的 | 小小的'.split('|'))
+In [26]:
+
+def adj_star(): return random.choice([None, adj() + adj()])
+In [140]:
+
+adj_grammar = '''
+Adj* => null | Adj Adj*
+Adj => 蓝色的 | 好看的 | 小小的
+'''
+In [52]:
+
+#
+#grammar = {}
+In [363]:
+
+def creat_grammar(grammar_str, split = '=>', line_split = '\n'):
+    grammar = {}
+    for line in grammar_str.split(line_split):
+        if not line.strip(): continue
+        exp, stmt = line.split(split)
+        grammar[exp.strip()] = [s.split() for s in stmt.split('|')]
+    return grammar
+In [142]:
+
+grammar['Adj*']
+Out[142]:
+[['null'], ['Adj', 'Adj*']]
+In [168]:
+
+#def generate(gram, target):
+#    if target in gram: 
+#        new_expanded = random.choice(gram[target])
+#        return ''.join(generate(gram,t) for t in new_expanded)
+#    else:
+#        return target
+In [381]:
+
+choice = random.choice
+​
+def generate(gram, target):
+    if target not in gram: return target
+    
+    expaned = [generate(gram,t) for t in choice(gram[target])]
+    return ''.join([e if e != "/n" else "\n" for e in expaned if e != 'null'])
+In [491]:
+
+generate(gram = grammar, target = 'Adj*')
+Out[491]:
+'小小的好看的'
+In [287]:
+
+example_grammar = creat_grammar(simple_grammar)
+In [288]:
+
+example_grammar
+Out[288]:
+{'sentence': [['noun_phrase', 'verb_phrase']],
+ 'noun_phrase': [['Article', 'Adj*', 'noun']],
+ 'Adj*': [['null'], ['Adj', 'Adj*']],
+ 'verb_phrase': [['verb', 'noun_phrase']],
+ 'Article': [['一个'], ['这个']],
+ 'noun': [['女人'], ['篮球'], ['桌子'], ['小猫']],
+ 'verb': [['看着'], ['坐在'], ['听着'], ['看见']],
+ 'Adj': [['蓝色的'], ['好看的'], ['小小的']]}
+In [322]:
+
+generate(gram = example_grammar, target = 'sentence')
+generate(gram = example_grammar, target = 'sentence')
+Out[322]:
+'这个篮球听着这个好看的女人'
+In [323]:
+
+#在西部世界里，一个”人类“的语言可以定义为：
+
+human = """
+human = 自己 寻找 活动
+自己 = 我 | 俺 | 我们 
+寻找 = 找找 | 想找点 
+活动 = 乐子 | 玩的
+"""
+
+
+#一个“接待员”的语言可以定义为
+
+host = """
+host = 寒暄 报数 询问 业务相关 结尾 
+报数 = 我是 数字 号 ,
+数字 = 单个数字 | 数字 单个数字 
+单个数字 = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
+寒暄 = 称谓 打招呼 | 打招呼
+称谓 = 人称 ,
+人称 = 先生 | 女士 | 小朋友
+打招呼 = 你好 | 您好 
+询问 = 请问你要 | 您需要
+业务相关 = 玩玩 具体业务
+玩玩 = null
+具体业务 = 喝酒 | 打牌 | 打猎 | 赌博
+结尾 = 吗？
+"""
+#在西部世界里，一个”人类“的语言可以定义为：
+​
+human = """
+human = 自己 寻找 活动
+自己 = 我 | 俺 | 我们 
+寻找 = 找找 | 想找点 
+活动 = 乐子 | 玩的
+"""
+​
+​
+#一个“接待员”的语言可以定义为
+​
+host = """
+host = 寒暄 报数 询问 业务相关 结尾 
+报数 = 我是 数字 号 ,
+数字 = 单个数字 | 数字 单个数字 
+单个数字 = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
+寒暄 = 称谓 打招呼 | 打招呼
+称谓 = 人称 ,
+人称 = 先生 | 女士 | 小朋友
+打招呼 = 你好 | 您好 
+询问 = 请问你要 | 您需要
+业务相关 = 玩玩 具体业务
+玩玩 = null
+具体业务 = 喝酒 | 打牌 | 打猎 | 赌博
+结尾 = 吗？
+"""
+In [492]:
+
+generate(gram = creat_grammar(human, split = '='), target = 'human')
+generate(gram = creat_grammar(human, split = '='), target = 'human')
+Out[492]:
+'俺找找乐子'
+In [517]:
+
+)
+for i in range(20):
+    print(generate(gram = creat_grammar(host, split = '='), target = 'host'))
+您好我是834号,请问你要喝酒吗？
+先生,你好我是1737887号,您需要赌博吗？
+先生,你好我是33号,您需要赌博吗？
+你好我是1号,请问你要打牌吗？
+你好我是718253号,您需要打猎吗？
+小朋友,您好我是88号,您需要喝酒吗？
+您好我是625号,请问你要打牌吗？
+您好我是876号,您需要打牌吗？
+您好我是31号,请问你要打猎吗？
+女士,您好我是9号,请问你要赌博吗？
+女士,你好我是53792号,请问你要赌博吗？
+先生,您好我是62号,您需要打猎吗？
+您好我是3号,您需要赌博吗？
+你好我是1号,请问你要打牌吗？
+你好我是7号,您需要喝酒吗？
+你好我是49985865号,您需要赌博吗？
+先生,你好我是8号,您需要喝酒吗？
+你好我是91号,您需要赌博吗？
+小朋友,您好我是7号,您需要打牌吗？
+你好我是65号,您需要赌博吗？
+In [384]:
+
+programming = """
+stmte => if_exp | while | assignment
+assignment => var = var
+if_exp => if ( var ) { /n stmte }
+while => while ( var ) { /n stmte }
+var => chars number
+chars => char | char char*
+char => a | b | c | d | e
+number => 1 | 2 | 3
+"""
+In [391]:
+
+generate(gram = creat_grammar(programming, split = '=>'), target = 'stmte')
+Out[391]:
+'echar*2=bchar*1'
+In [ ]:
+
+ -*- coding: utf-8 -*-
+In [536]:
+
+r
+filename = r'C:\Users\49997\Desktop\train.txt'
+In [530]:
+
+import pandas as pd
+In [539]:
+
+,
+content = pd.read_csv(filename, encoding='utf-8',delimiter='\t')
+
+
 
 
 
