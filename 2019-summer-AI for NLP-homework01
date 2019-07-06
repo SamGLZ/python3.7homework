@@ -1,0 +1,73 @@
+基础理论部分
+0. Can you come up out 3 sceneraies which use AI methods?
+Ans: {Put your answer here}
+
+1. How do we use Github; Why do we use Jupyter and Pycharm;
+Ans: {Put your answer here}
+
+2. What's the Probability Model?
+Ans:
+
+3. Can you came up with some sceneraies at which we could use Probability Model?
+Ans:
+
+4. Why do we use probability and what's the difficult points for programming based on parsing and pattern match?
+Ans:
+
+5. What's the Language Model;
+Ans:
+
+6. Can you came up with some sceneraies at which we could use Language Model?
+Ans:
+
+7. What's the 1-gram language model;
+Ans:
+
+8. What's the disadvantages and advantages of 1-gram language model;
+Ans:
+
+9. What't the 2-gram models;
+Ans:
+
+编程实践部分
+# -*- coding: utf-8 -*-
+import random
+import sys
+sys.setrecursionlimit(100000000)
+question = """
+问题 => 打招呼 自己 询问 业务相关 结尾
+自己 => 我叫 名字 ,
+名字 => 姓 名
+姓 => 陈 | 李 | 张 | 王 | 黄
+名 => 一 | 二 | 三 | 四 | 五
+打招呼 => 你好， | 您好，
+询问 => 您想 | 您是要
+业务相关 => 催 报告_1 | 推荐 项目
+报告_1  => 流水号为 数字 号报告
+数字 => 单个数字 | 数字 单个数字
+单个数字 => 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+项目 => 心脏优选 | 免疫优选 | 神经优选 | 内分泌优选
+结尾 => 吗？"""
+
+def create_grammar(grammar_str, split = "=>", line_split = "\n"):
+    grammar = {}
+    for line in grammar_str.split(line_split):
+        if not line.strip():
+            continue
+        exp, stmt = line.split(split)
+        grammar[exp.strip()] = [s.split() for s in stmt.split('|')]
+    return grammar
+
+def generate(gram, target):
+    try:
+        if target not in gram:
+            return target
+
+        expaned = [generate(gram, t) for t in random.choice(gram[target])]
+        return ''.join([e for e in expaned])
+    except RecursionError:
+        return None
+
+def generate_n(a, b, c):
+    for i in range(c):
+        print(generate(gram=a, target=b))
